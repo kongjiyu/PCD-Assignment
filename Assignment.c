@@ -80,7 +80,7 @@ void getStudentName();
 void getStudentId();
 void getStudentIc();
 void getCurrentSemesterSession();
-void signUpSucess();
+void signUpsuccess();
 void addNewCourse();
 void getCourseCode();
 void getCreditHour();
@@ -441,10 +441,10 @@ void getCurrentSemesterSession() {
 	scanf("%d", &student[totalNumOfStudent].currentSemesterSession);
 }
 
-void signUpSucess() {
+void signUpSuccess() {
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*           Sign Up Sucess!           *\n");
+	printf("*           Sign Up Success!           *\n");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
 	Sleep(1000);
 }
