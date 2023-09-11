@@ -1,0 +1,375 @@
+DEFINE EXIT "999"
+DEFINE MAX_COURSES 21
+DEFINE GRADUATE_CREDIT_HOUR
+
+Declare variable of totalNumOfStudent = 4, currenStudent = 0, currentCourse = 0, logInStatus = 0, adminLogInStatus = 0
+Declare array grades, gradePoints and admin
+
+declare courseDetail structure:
+    courseCode
+    creditHour
+    semesterSession
+    grade
+    gradePoint
+    quantityPoint
+
+daclare studentDetail structure:
+    name
+    id
+    ic
+    currentSemesterSession
+    numOfCourse
+    totalCreditHour
+    totalQuantityPoint
+    gradePointcgpa
+    structure courseDetail: course
+
+Initialize sample student data
+
+START
+    Variable declaration for choice
+    SYSTEM background color to WHITE
+    OUTPUT logo
+    DO
+        OUTPUT menu
+        INPUT choice
+        IF(choice == 1)
+            CALL administratorMode()
+        ELSE IF(choice == 2)
+            CALL studentMode()
+        ELSE IF(choice == 999)
+            OUTPUT Thank you and bye
+            BREAK loop
+        ELSE
+            OUTPUT invalid choice
+    WHILE(choice != 999)
+END
+
+administratorMode()
+    Variable declaration for choice
+    CALL adminSignIn()
+    IF(adminLogInStatus == 1)
+        DO
+            OUTPUT admin menu
+            INPUT choice
+            IF(choice == 1)
+                CALL adminSignInStudent()
+                IF(logInStatus == 1)
+                    CALL adminMenu()
+            ELSE IF(choice == 2)
+                CALL signUp()
+            ELSE IF(choice == 3)
+                CALL studentList()
+            ELSE IF(choice == 999)
+                adminLogInStatus = 0
+                OUTPUT Thank you
+        WHILE(choice != 999)
+RETURN
+
+adminSignIn()
+    Variable declaration for lectureId and temp
+    DO
+        OUTPUT Admin Sign In Menu
+        INPUT lectureId
+        FOR(temporary=1, temporary<=9, i+=2)
+            IF(id == admin[i])
+                adminLogInStatus = 1
+                BREAK loop
+        IF(adminLogInStatus == 0)
+            OUTPUT Invalid Lecture ID
+        ELSE
+            OUTPUT Welcome admin
+    WHILE(adminLogInStatus != 1)
+RETURN
+
+
+adminSignInStudent()
+    Variable declaration for studentId and temporary
+    DO
+        OUTPUT Sign in menu
+        INPUT studentId
+        FOR(temporary = 0, temporary < total number of student, temporary++)
+            IF(studentId == student[temporary].id)
+                current student = temporary
+                logInStatus = 1
+                BREAK loop
+        IF(studentId == EXIT)
+            OUTPUT Thank you
+        ELSE IF(temporary == total Number Of Student)
+            OUTPUT invalid Student ID
+        ELSE
+            BREAK loop
+    WHILE(studentId != EXIT)
+RETURN
+
+studentList()
+    variable declaration for exit
+    OUTPUT header
+    FOR(temporary = 0, temporary < totalNumOfStudent, temporary++)
+        OUTPUT studentDetail[temporary]
+RETURN
+
+adminMenu()
+    Variable declaration for choice and check
+    OUTPUT admin menu
+    INPUT choice
+    SWITCH(choice)
+        CASE 1:
+            CALL addNewCourse()
+        CASE 2:
+            IF(number of course of current student > 0)
+                CALL editCourseDetail()
+            ELSE
+                OUTPUT No course to edit
+        CASE 3:
+            IF(number of course of current student > 0)
+                call viewResult()
+            ELSE
+                OUTPUT no result
+        CASE 999:
+            OUTPUT Signed out
+        DEFAULT:
+            OUTPUT No This Choice
+    WHILE(choice != 999)
+RETURN
+
+signUp()
+    CALL getStudentName()
+    CALL getStudentId()
+    CALL getStudentIc()
+    CALL getCurrentSemesterSession()
+    CALL signUpSucess()
+    totalNumOfStudent++
+RETURN
+
+getStudentName()
+    OUTPUT Sign Up menu
+    INPUT new student name
+RETURN
+
+getStudentId()
+    OUTPUT Sign up Menu
+    INPUT new student ID
+RETURN
+
+getStudentIc()
+    OUTPUT Sign Up Menu
+    INPUT new Student IC
+RETURN
+
+getCurrentSemesterSession()
+    OUTPUT Sign Up Menu
+    INPUT new student Current Semester session
+RETURN
+
+signUpSucess()
+    OUTPUT Sign Up Success
+RETURN
+
+addNewCourse()
+    currentCourse = number of course of current student
+    CALL getCourseCode()
+    CALL getCreditHour()
+    CALL getSemesterSession()
+    CALL getGrade()
+    CALL convertGradeToGradePoint()
+    CALL calculateQuantityPoint()
+    Number of course of current student++
+    CALL calculateGpa()
+    CALL calculateCgpa()
+RETURN
+
+getCourseCode()
+    OUTPUT add new course (course code) menu
+    INPUT courseCode
+RETURN
+
+getCreditHour()
+    DO
+        OUTPUT add new course (credit hour) menu
+        INPUT creditHour
+        IF(credithour of current course of current student <= 0)
+            OUTPUT invalid credit hour
+    WHILE(credit hour of current course of current student <= 0)
+RETURN
+
+getSemesterSession()
+    DO
+        OUTPUT add new course (semester of course) menu
+        INPUT semesterSession
+        IF(semester session of current course of current student > current semester session of current student)
+            OUTPUT invalid semester
+    WHILE(semester session of current course of current student > current semester session of current student)
+RETURN
+
+getGrade()
+    variable declaration for temporary
+    DO
+        OUTPUT add new course (grade) menu
+        INPUT grade
+        convert grade to upper case
+        FOR(temporary = 0, temporary < 8, temporary++)
+            IF(grade[temporary] == grade of current course of current student)
+                BREAK loop
+        IF(temporary == 8)
+            OUTPUT invalid grade
+    WHILE TRUE
+RETURN
+
+convertGradeToGradePoint()
+    FOR(i = 0, i < length of grades array, temporary++)
+        IF (grade of current course of current student == grade[i])
+            grade point of current course of current student = gradePoints[i]
+RETURN
+
+calculateQuantityPoint()
+    quantity point of current course of current student = grade point of current course of current student* credit hour of current course
+RETURN
+
+editCourseDetail()
+    DO
+        current course = CALL chooseCourse()
+        IF (current course != 999)
+            CALL chooseDetail()
+    WHILE(currentCourse != 999)
+RETURN
+
+chooseCourse()
+    variable declaration for choice
+    DO
+        OUTPUT Menu
+        FOR(i = 0, i < number of course of current student, temporary++)
+            OUTPUT detail of course[i]
+        INPUT choice
+        IF(choice == 999)
+            BREAK loop
+        ELSE IF(choice > number of course of current student)
+            OUTPUT invalid choice
+    WHILE(choice != 999 AND choice > number of course of current student)
+    RETURN choice == 999 ? choice : --choice
+RETURN
+
+chooseDetail()
+    variable declaration for choice
+    DO
+        OUTPUT Edit Menu
+        INPUT choice
+        SWITCH(choice)
+            CASE 1:
+                CALL getCourseCode()
+            CASE 2:
+                CALL getCreditHour()
+            CASE 3:
+                CALL getSemesterSession()
+            CASE 4:
+                CALL getGrade()
+                CALL convertGradeToGradePoint()
+            CASE 999:
+                BREAK SWITCH
+            DEFAULT:
+                OUTPUT Invalid Choice
+    WHILE(choice != 999)
+    CALL calculateQuantityPoint()
+    CALL calculateGpa()
+    CALL calculateCgpa()
+RETURN
+
+viewResult()
+    variable declaration for choice
+    OUTPUT Student Detail
+    OUTPUT Course Detail
+    OUTPUT GPA and CGPA
+    IF(total credit hour of current student >= 21 AND cgpa of current student >= 2.00)
+        OUTPUT Graduate status valid
+    ELSE
+        OTUPUT Graduate status not valid
+RETURN
+
+calculateGpa()
+    variable declaration for creditHour array, semesterSession array, totalCreditHour array, quantityPoint array, totalQuantityPoint array
+    FOR(i = 0, i < number of course of current student, temporary++)
+        semesterSession[i] = semesterSession of no.[i] course of current student
+        quantityPoint[i] = quantityPoint of no.[i] course of current student
+        creditHour[i] = creditHour of no.[i] course of current student
+    FOR(i = 0, i < number of course of current student, temporary++)
+        SWITCH(semesterSession[i])
+		CASE 1:
+			totalQuantityPoint[0] += quantityPoint[i];
+			totalCreditHour[0] += creditHour[i];
+		CASE 2:
+			totalQuantityPoint[1] += quantityPoint[i];
+			totalCreditHour[1] += creditHour[i];
+		CASE 3:
+			totalQuantityPoint[2] += quantityPoint[i];
+			totalCreditHour[2] += creditHour[i];
+    FOR(i = 0, i < 3, temporary++)
+        IF(totalCreditHour[i] != 0)
+            gpa[i] of current student = totalQuantityPoint[i] / totalCreditHour[i]
+RETURN
+
+calculateCgpa()
+    INITIALIZE the value of total quanity point and total credit hour of current student to 0
+    FOR(temporary = 0, temporary < number of course of current student, temporary++)
+        IF(quantityPoint of no.temporary course of current student == 0)
+            CONTINUE to next temporary
+        ELSE
+            totalQuantityPoint of current student += quantityPoint of no.temporary course of current student
+            totalCreditHour of current student += totalCreditHour of no.temporary course of current student
+    cgpa of current student = totalQuantityPoint of current student / totalCreditHour of current student
+RETURN
+
+studentMode()
+    variable declaration for choice
+    CALL logIn()
+    IF(logInStatus == 1)
+        DO
+            OUTPUT Student Menu
+            INPUT choice
+            IF(choice == 1)
+                IF(number of course of current student > 0)
+                    CALL viewResult()
+                ELSE
+                    OUTPUT No result
+            ELSE IF(choice == 999)
+                CALL logOut()
+                BREAK loop
+            ELSE
+                OUTPUT invalid choice
+        WHILE(choice != 999)
+RETURN
+
+logIn()
+    variable declaration for i, studentId, studentIc
+    OUTPUT Log In Menu(ID)
+    INPUT studentId
+    IF(studentId == 999)
+        OUTPUT Thank you
+        RETURN
+    OUTPUT Log In Menu(IC)
+    IF(studentIc == 999)
+        OUTPUT Thank you
+        RETURN
+    FOR(i = 0, i < totalNumOfStudent, temporary++)
+        IF(student[i].id == studentId AND student[i].ic == studentIc)
+            logInStatus = 1
+            currentStudent = i
+            OUTPUT Hello (student[i].name)
+            BREAK loop
+    IF(i == totalNumOfStudent)
+        logInStatus = 0
+        OUTPUT invalid student ID or IC
+RETURN
+
+logOut()
+    currentStudent = -999
+RETURN
+    
+logo()
+    OUTPUT icon
+RETURN
+
+bye()
+    FOR(i = 0, i < 3, temporary++)
+        OUTPUT Hand up
+        OUTPUT Hand down
+RETURN
