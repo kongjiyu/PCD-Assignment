@@ -231,6 +231,9 @@ void adminSignIn() {
 				break;
 			}
 		}
+		if ( strcmp(lectureId,"999")==0) {
+			break;
+		}
 		if (adminLogInStatus == 0) {
 			system("cls");
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
