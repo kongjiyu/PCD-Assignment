@@ -138,7 +138,7 @@ signUp()
     CALL getStudentId()
     CALL getStudentIc()
     CALL getCurrentSemesterSession()
-    CALL signUpSucess()
+    CALL signUpSuccess()
     totalNumOfStudent++
 RETURN
 
@@ -162,7 +162,7 @@ getCurrentSemesterSession()
     INPUT new student Current Semester session
 RETURN
 
-signUpSucess()
+signUpSuccess()
     OUTPUT Sign Up Success
 RETURN
 
