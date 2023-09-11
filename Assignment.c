@@ -219,6 +219,8 @@ void adminSignIn() {
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
 		printf("*          Input: Lecture ID          *\n");
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*              Ex. L0001              *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
 		printf("*              Exit [999]             *\n");
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
 		printf(" > ");
