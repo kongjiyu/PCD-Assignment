@@ -486,11 +486,17 @@ void getCreditHour() {
 		printf(" > ");
 		rewind(stdin);
 		scanf("%d", &student[currentStudent].course[currentCourse].creditHour);
-		if (student[currentStudent].course[currentCourse].creditHour < 0) {
-			printf("Invalid Credit Hour! (Credit Hour must more than 0)");
+		if (student[currentStudent].course[currentCourse].creditHour <= 0) {
+			system("cls");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*         Invalid Credit Hour!        *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*    Credit Hour must more than 0 !   *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			Sleep(1000);
 		}
-	} while (student[currentStudent].course[currentCourse].creditHour < 0);
-	
+	} while (student[currentStudent].course[currentCourse].creditHour <= 0);
+
 }
 
 void getSemesterSession() {
@@ -506,11 +512,15 @@ void getSemesterSession() {
 		printf(" > ");
 		rewind(stdin);
 		scanf("%d", &student[currentStudent].course[currentCourse].semesterSession);
-		if (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession) {
-			printf("Invalid semester! %s is currently in semester %d)\n", student[currentStudent].name, student[currentStudent].currentSemesterSession);
-			system("pause");
+		if (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession || student[currentStudent].course[currentCourse].semesterSession <=0) {
+			system("cls");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*          Invalid Semester  !        *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf(">> %s is currently in semester %d <<\n", student[currentStudent].name, student[currentStudent].currentSemesterSession);
+			Sleep(1000);
 		}
-	} while (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession);
+	} while (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession || student[currentStudent].course[currentCourse].semesterSession <= 0);
 
 }
 
@@ -699,7 +709,7 @@ void viewResult() {
 	printf("*                         RESULT                          *\n");
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 	for (int temp = 1; temp <= student[currentStudent].currentSemesterSession; temp++) {
-		printf("* GPA Sem %d                           * %-17.2lf *\n", temp, student[currentStudent].gpa[temp-1]);
+		printf("* GPA Sem %d                           * %-17.2lf *\n", temp, student[currentStudent].gpa[temp - 1]);
 		printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 	}
 	printf("* CGPA                                * %-17.2lf *\n", student[currentStudent].cgpa);
@@ -743,21 +753,21 @@ void calculateGpa() {
 
 	//according to the semester session calculate gpa
 	for (int temp = 0; temp < student[currentStudent].numOfCourse; temp++) {
-		if(totalQuantityPoint)
-		switch (semesterSession[temp]) {
-		case 1:
-			totalQuantityPoint[0] += quantityPoint[temp];
-			totalCreditHour[0] += creditHour[temp];
-			break;
-		case 2:
-			totalQuantityPoint[1] += quantityPoint[temp];
-			totalCreditHour[1] += creditHour[temp];
-			break;
-		case 3:
-			totalQuantityPoint[2] += quantityPoint[temp];
-			totalCreditHour[2] += creditHour[temp];
-			break;
-		}
+		if (totalQuantityPoint)
+			switch (semesterSession[temp]) {
+			case 1:
+				totalQuantityPoint[0] += quantityPoint[temp];
+				totalCreditHour[0] += creditHour[temp];
+				break;
+			case 2:
+				totalQuantityPoint[1] += quantityPoint[temp];
+				totalCreditHour[1] += creditHour[temp];
+				break;
+			case 3:
+				totalQuantityPoint[2] += quantityPoint[temp];
+				totalCreditHour[2] += creditHour[temp];
+				break;
+			}
 	}
 	for (int temp = 0; temp < 3; temp++) {
 		if (totalCreditHour[temp] != 0) {
