@@ -620,7 +620,7 @@ int chooseCourse() {
 		//print the list of courses
 		system("cls");
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
-		printf("* No. *  Course * Credit*  Sem  Grade\n");
+		printf("* No. *  Course * Credit*  Sem  *Grade*\n");
 		printf("*     *         *  Hour *       *     *\n");
 		for (int temp = 0; temp < student[currentStudent].numOfCourse; temp++) {
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
