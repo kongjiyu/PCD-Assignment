@@ -397,33 +397,42 @@ void getStudentName() {
 }
 
 void getStudentId() {
-	//input: student ID
-	system("cls");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*             SIGN UP MENU            *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*          Input: Student ID          *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*              Ex.KPKL0001            *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf(" > ");
-	rewind(stdin);
-	scanf("%s", student[totalNumOfStudent].id);
-}
+	int temp;
+	do {
+		system("cls");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*             SIGN UP MENU            *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*          Input: Student ID          *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*              Ex.KPKL0001            *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf(" > ");
+		rewind(stdin);
+		scanf("%s", student[totalNumOfStudent].id);
+		for (temp = 0; temp < totalNumOfStudent; temp++) {
+			if (student[totalNumOfStudent].id == student[temp].id) {
+				system("cls");
+				printf("* * * * * * * * * * * * * * * * * * * *\n");
+				printf("*         Invalid Student ID!         *\n");
+				printf("* * * * * * * * * * * * * * * * * * * *\n");
+				printf("*         Student ID repeated!        *\n");
+				printf("* * * * * * * * * * * * * * * * * * * *\n");
+				system("pause");
+				break;
+			}
+		}
+		if (temp != totalNumOfStudent && !(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L')) {
+			system("cls");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*         Invalid Student ID!         *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*   Student ID must start wirh KPKL   *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			system("pause");
+		}
+	} while (!(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L'));
 
-void getStudentIc() {
-	//input: Student IC
-	system("cls");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*             SIGN UP MENU            *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*          Input: Student IC          *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*           Ex.050730101125           *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf(" > ");
-	rewind(stdin);
-	scanf("%s", student[totalNumOfStudent].ic);
 }
 
 void getCurrentSemesterSession() {
