@@ -148,8 +148,17 @@ getStudentName()
 RETURN
 
 getStudentId()
-    OUTPUT Sign up Menu
-    INPUT new student ID
+    Variable declaration for temporary
+    DO
+        OUTPUT Sign Up Menu
+	INPUT new student ID
+	FOR(temporary = 0, temporary < totalNumOfStudent, temporary++)
+	    IF(id of no.[totalNumOfStudent] student == id of no.[temporary] student)
+		OUTPUT invalid student ID, student ID repeated
+		BREAK loop
+	IF(temporary != totalNumOfStudent AND first 4 letter is KPKL)
+	OUTPUT Invalid student ID, student ID must start with KPKL
+    WHILE(first four letter is not KPKL)
 RETURN
 
 getStudentIc()
