@@ -468,7 +468,7 @@ void getCurrentSemesterSession() {
 void signUpSuccess() {
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*           Sign Up Success!           *\n");
+	printf("*          Sign Up Success!           *\n");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
 	Sleep(1000);
 }
