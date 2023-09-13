@@ -80,7 +80,7 @@ void getStudentName();
 void getStudentId();
 void getStudentIc();
 void getCurrentSemesterSession();
-void signUpsuccess();
+void signUpSuccess();
 void addNewCourse();
 void getCourseCode();
 void getCreditHour();
@@ -233,7 +233,7 @@ void adminSignIn() {
 				break;
 			}
 		}
-		if ( strcmp(lectureId,"999")==0) {
+		if (strcmp(lectureId, "999") == 0) {
 			break;
 		}
 		if (adminLogInStatus == 0) {
@@ -377,7 +377,7 @@ void signUp() {
 	getStudentId();
 	getStudentIc();
 	getCurrentSemesterSession();
-	signUpSucess();
+	signUpSuccess();
 	totalNumOfStudent++;
 }
 
@@ -433,6 +433,21 @@ void getStudentId() {
 		}
 	} while (!(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L'));
 
+}
+
+void getStudentIc() {
+	//input: Student IC
+	system("cls");
+	printf("* * * * * * * * * * * * * * * * * * * *\n");
+	printf("*             SIGN UP MENU            *\n");
+	printf("* * * * * * * * * * * * * * * * * * * *\n");
+	printf("*          Input: Student IC          *\n");
+	printf("* * * * * * * * * * * * * * * * * * * *\n");
+	printf("*           Ex.050730101125           *\n");
+	printf("* * * * * * * * * * * * * * * * * * * *\n");
+	printf(" > ");
+	rewind(stdin);
+	scanf("%s", student[totalNumOfStudent].ic);
 }
 
 void getCurrentSemesterSession() {
@@ -526,7 +541,7 @@ void getSemesterSession() {
 		printf(" > ");
 		rewind(stdin);
 		scanf("%d", &student[currentStudent].course[currentCourse].semesterSession);
-		if (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession || student[currentStudent].course[currentCourse].semesterSession <=0) {
+		if (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession || student[currentStudent].course[currentCourse].semesterSession <= 0) {
 			system("cls");
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
 			printf("*          Invalid Semester  !        *\n");
