@@ -101,6 +101,7 @@ void logOut();
 void logo();
 void bye();
 
+//main function
 void main() {
 	//variable declaration
 	int choice;
@@ -157,6 +158,7 @@ void main() {
 	system("pause");
 }
 
+//function for administrator mode
 void administratorMode() {
 	int choice;
 	adminSignIn();
@@ -208,6 +210,7 @@ void administratorMode() {
 	}
 }
 
+//function for admin sign in
 void adminSignIn() {
 	char lectureId[10];
 	int temp;
@@ -253,7 +256,7 @@ void adminSignIn() {
 	} while (adminLogInStatus != 1);
 }
 
-
+//function for admin to choose which student to edit
 void adminSignInStudent() {
 	char studentId[10], temp;
 	do {
@@ -295,6 +298,7 @@ void adminSignInStudent() {
 	} while (strcmp(studentId, EXIT) != 0);
 }
 
+//function to show all student exist
 void studentList() {
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
@@ -308,6 +312,7 @@ void studentList() {
 	system("pause");
 }
 
+//function for admin menu
 void adminMenu() {
 	int choice;
 	do {
@@ -372,6 +377,7 @@ void adminMenu() {
 	} while (choice != 999);
 }
 
+//function admin sign up new student
 void signUp() {
 	getStudentName();
 	getStudentId();
@@ -381,6 +387,7 @@ void signUp() {
 	totalNumOfStudent++;
 }
 
+//function to prompt for student name
 void getStudentName() {
 	//input: Student Name
 	system("cls");
@@ -396,6 +403,7 @@ void getStudentName() {
 	gets(student[totalNumOfStudent].name);
 }
 
+//function to prompt for student ID
 void getStudentId() {
 	int temp;
 	do {
@@ -432,9 +440,9 @@ void getStudentId() {
 			system("pause");
 		}
 	} while (!(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L'));
-
 }
 
+//function to prompt for student IC
 void getStudentIc() {
 	//input: Student IC
 	system("cls");
@@ -450,6 +458,7 @@ void getStudentIc() {
 	scanf("%s", student[totalNumOfStudent].ic);
 }
 
+//function to prompt for student current semester session
 void getCurrentSemesterSession() {
 	//input: Current Semester Session
 	system("cls");
@@ -465,6 +474,7 @@ void getCurrentSemesterSession() {
 	scanf("%d", &student[totalNumOfStudent].currentSemesterSession);
 }
 
+//function for output sign up success
 void signUpSuccess() {
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
@@ -473,6 +483,7 @@ void signUpSuccess() {
 	Sleep(1000);
 }
 
+//function for add new course that taken by student
 void addNewCourse() {
 	currentCourse = student[currentStudent].numOfCourse;
 	getCourseCode();
@@ -486,6 +497,7 @@ void addNewCourse() {
 	calculateCgpa();
 }
 
+//function to prompt for course code
 void getCourseCode() {
 	//input: course code
 	system("cls");
@@ -501,8 +513,8 @@ void getCourseCode() {
 	scanf("%s", student[currentStudent].course[currentCourse].courseCode);
 }
 
+//function to prompt for credit hour
 void getCreditHour() {
-	//input: credit hour
 	do {
 		system("cls");
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
@@ -525,9 +537,9 @@ void getCreditHour() {
 			Sleep(1000);
 		}
 	} while (student[currentStudent].course[currentCourse].creditHour <= 0);
-
 }
 
+//function to prompt for course belongs to which semester
 void getSemesterSession() {
 	do {
 		system("cls");
@@ -550,9 +562,9 @@ void getSemesterSession() {
 			Sleep(1000);
 		}
 	} while (student[currentStudent].course[currentCourse].semesterSession > student[currentStudent].currentSemesterSession || student[currentStudent].course[currentCourse].semesterSession <= 0);
-
 }
 
+//function to prompt for grade
 void getGrade() {
 	//local variable for temporary use
 	int temp;
@@ -590,6 +602,7 @@ void getGrade() {
 	} while (1);
 }
 
+//function to convert grade to grade point
 void convertGradeToGradePoint() {
 	//get the grade point according to the index
 	for (int temp = 0; temp < 8; temp++) {
@@ -599,11 +612,13 @@ void convertGradeToGradePoint() {
 	}
 }
 
+//function to calculate quantity point
 void calculateQuantityPoint() {
 	//Formula: Grade point * Credit hour
 	student[currentStudent].course[currentCourse].quantityPoint = student[currentStudent].course[currentCourse].gradePoint * student[currentStudent].course[currentCourse].creditHour;
 }
 
+//function to edit course detail
 void editCourseDetail() {
 	do {
 		currentCourse = chooseCourse();
@@ -613,6 +628,7 @@ void editCourseDetail() {
 	} while (currentCourse != 999);
 }
 
+//function to choose which course to edit
 int chooseCourse() {
 	//local variable for choice
 	int choice;
@@ -646,6 +662,7 @@ int chooseCourse() {
 	return (choice == 999 ? choice : --choice);
 }
 
+//function to choose which detail wanted to edit
 void chooseDetail() {
 	//local variable for choice
 	int choice;
@@ -696,6 +713,7 @@ void chooseDetail() {
 	calculateCgpa();
 }
 
+//function to view result
 void viewResult() {
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
@@ -763,6 +781,7 @@ void viewResult() {
 	system("pause");
 }
 
+//function to calculate gpa
 void calculateGpa() {
 	//local variable to calculate gpa
 	int creditHour[MAX_COURSES], semesterSession[MAX_COURSES], totalCreditHour[3] = { 0,0,0 };
@@ -824,6 +843,7 @@ void calculateCgpa() {
 	student[currentStudent].cgpa = student[currentStudent].totalQuantityPoint / student[currentStudent].totalCreditHour;
 }
 
+//function for student mode
 void studentMode() {
 	//local variable for choice
 	int choice;
@@ -868,6 +888,7 @@ void studentMode() {
 	}
 }
 
+//function for student log in
 int logIn() {
 	//local variable for loop and validation
 	int temp;
@@ -938,11 +959,13 @@ int logIn() {
 	return 0;
 }
 
+//function for student logout
 void logOut() {
 	//invalid student
 	currentStudent = -999;
 }
 
+//function for logo
 void logo() {
 	//icon
 	system("cls");
@@ -972,8 +995,8 @@ void logo() {
 	Sleep(3000);
 }
 
+//function for bye bye animation
 void bye() {
-	//bye animation
 	for (int temp = 0; temp < 3; temp++) {
 		system("cls");
 		printf("                                                 &(          \n");
