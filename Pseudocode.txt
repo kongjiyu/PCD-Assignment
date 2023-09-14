@@ -156,9 +156,9 @@ getStudentId()
 	    IF(id of no.[totalNumOfStudent] student == id of no.[temporary] student)
 		OUTPUT invalid student ID, student ID repeated
 		BREAK loop
-	IF(temporary != totalNumOfStudent AND first 4 letter is KPKL)
-	OUTPUT Invalid student ID, student ID must start with KPKL
-    WHILE(first four letter is not KPKL)
+	IF(temporary == totalNumOfStudent AND first 4 letter is KPKL)
+		OUTPUT Invalid student ID, student ID must start with KPKL
+    WHILE(temporary != totalNumOfStudent OR first four letter is not KPKL)
 RETURN
 
 getStudentIc()
@@ -167,8 +167,12 @@ getStudentIc()
 RETURN
 
 getCurrentSemesterSession()
-    OUTPUT Sign Up Menu
-    INPUT new student Current Semester session
+    DO
+        OUTPUT Sign Up Menu
+        INPUT new student Current Semester session
+	IF currentSemesterSession of student no.[totalNumOfStudent] < 1 OR > 3
+	    OUTPUT Invalid semester, semester must between 0 and 3
+    WHILE(currentSemesterSession of student no.[totalNumOfStudent] < 1 PR > 3)
 RETURN
 
 signUpSuccess()
