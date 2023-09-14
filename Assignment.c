@@ -212,7 +212,7 @@ void administratorMode() {
 
 //function for admin sign in
 void adminSignIn() {
-	char lectureId[10];
+	char lectureId[10] = "";
 	int temp;
 
 	do {
@@ -258,7 +258,7 @@ void adminSignIn() {
 
 //function for admin to choose which student to edit
 void adminSignInStudent() {
-	char studentId[10], temp;
+	char studentId[10] = "", temp;
 	do {
 		system("cls");
 		printf("* * * * * * * * * * * * * * * * * * * *\n");
@@ -419,27 +419,27 @@ void getStudentId() {
 		rewind(stdin);
 		scanf("%s", student[totalNumOfStudent].id);
 		for (temp = 0; temp < totalNumOfStudent; temp++) {
-			if (student[totalNumOfStudent].id == student[temp].id) {
+			if (strcmp(student[totalNumOfStudent].id, student[temp].id) == 0) {
 				system("cls");
 				printf("* * * * * * * * * * * * * * * * * * * *\n");
 				printf("*         Invalid Student ID!         *\n");
 				printf("* * * * * * * * * * * * * * * * * * * *\n");
 				printf("*         Student ID repeated!        *\n");
 				printf("* * * * * * * * * * * * * * * * * * * *\n");
-				system("pause");
+				Sleep(1000);
 				break;
 			}
 		}
-		if (temp != totalNumOfStudent && !(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L')) {
+		if (temp == totalNumOfStudent && !(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L')) {
 			system("cls");
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
 			printf("*         Invalid Student ID!         *\n");
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
 			printf("*   Student ID must start wirh KPKL   *\n");
 			printf("* * * * * * * * * * * * * * * * * * * *\n");
-			system("pause");
+			Sleep(1000);
 		}
-	} while (!(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L'));
+	} while (temp != totalNumOfStudent || !(student[totalNumOfStudent].id[0] == 'K' && student[totalNumOfStudent].id[1] == 'P' && student[totalNumOfStudent].id[2] == 'K' && student[totalNumOfStudent].id[3] == 'L'));
 }
 
 //function to prompt for student IC
@@ -460,18 +460,29 @@ void getStudentIc() {
 
 //function to prompt for student current semester session
 void getCurrentSemesterSession() {
-	//input: Current Semester Session
-	system("cls");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*             SIGN UP MENU            *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*   Input: Student Current Semester   *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf("*                 Ex.2                *\n");
-	printf("* * * * * * * * * * * * * * * * * * * *\n");
-	printf(" > ");
-	rewind(stdin);
-	scanf("%d", &student[totalNumOfStudent].currentSemesterSession);
+	do {
+		//input: Current Semester Session
+		system("cls");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*             SIGN UP MENU            *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*   Input: Student Current Semester   *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf("*                 Ex.2                *\n");
+		printf("* * * * * * * * * * * * * * * * * * * *\n");
+		printf(" > ");
+		rewind(stdin);
+		scanf("%d", &student[totalNumOfStudent].currentSemesterSession);
+		if (student[totalNumOfStudent].currentSemesterSession < 1 || student[totalNumOfStudent].currentSemesterSession > 3) {
+			system("cls");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*          Invalid Semester  !        *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			printf("*    Semester must between 0 and 3    *\n");
+			printf("* * * * * * * * * * * * * * * * * * * *\n");
+			Sleep(1000);
+		}
+	} while (student[totalNumOfStudent].currentSemesterSession < 1 || student[totalNumOfStudent].currentSemesterSession > 3);
 }
 
 //function for output sign up success
@@ -784,8 +795,8 @@ void viewResult() {
 //function to calculate gpa
 void calculateGpa() {
 	//local variable to calculate gpa
-	int creditHour[MAX_COURSES], semesterSession[MAX_COURSES], totalCreditHour[3] = { 0,0,0 };
-	double quantityPoint[MAX_COURSES], totalQuantityPoint[3] = { 0,0,0 };
+	int creditHour[MAX_COURSES] = {0}, semesterSession[MAX_COURSES] = {0}, totalCreditHour[3] = {0,0,0};
+	double quantityPoint[MAX_COURSES] = {0}, totalQuantityPoint[3] = {0,0,0};
 
 	//push all value into array for easier calculation
 	for (int temp = 0; temp < student[currentStudent].numOfCourse; temp++) {
@@ -892,7 +903,7 @@ void studentMode() {
 int logIn() {
 	//local variable for loop and validation
 	int temp;
-	char studentId[10], studentIc[18];
+	char studentId[10] = "", studentIc[18] = "";
 	system("cls");
 	printf("* * * * * * * * * * * * * * * * * * * *\n");
 	printf("*            STUDENT LOG IN           *\n");
